@@ -1,0 +1,126 @@
+/* ── YouTube Focus Bar ───────────────────────────────────────────────────── */
+#yt-focus-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  background: #0f0f0f;
+  border-top: 1px solid #272727;
+  font-family: "YouTube Sans", Roboto, sans-serif;
+}
+
+#yt-focus-inner {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 16px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+#yt-focus-badge {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  color: #fff;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+#yt-focus-shortcuts {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.yt-focus-shortcut {
+  font-size: 12px;
+  color: #aaa;
+  text-decoration: none;
+  background: #272727;
+  padding: 4px 10px;
+  border-radius: 16px;
+  transition: background 0.2s, color 0.2s;
+  white-space: nowrap;
+}
+
+.yt-focus-shortcut:hover {
+  background: #3f3f3f;
+  color: #fff;
+}
+
+#yt-focus-settings {
+  background: none;
+  border: 1px solid #444;
+  color: #aaa;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+#yt-focus-add {
+  background: none;
+  border: 1px solid #444;
+  color: #aaa;
+  font-size: 16px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: border-color .2s, color .2s;
+}
+#yt-focus-add:hover { border-color: #fff; color: #fff; }
+
+#yt-focus-add-form {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+#yt-focus-label, #yt-focus-url {
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  outline: none;
+  transition: border-color .15s;
+}
+#yt-focus-label { width: 120px; }
+#yt-focus-url   { width: 200px; }
+#yt-focus-label:focus, #yt-focus-url:focus { border-color: #888; }
+
+#yt-focus-save {
+  background: #4f8ef7;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+#yt-focus-save:hover { background: #3a7de0; }
+
+#yt-focus-cancel {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+}
+#yt-focus-cancel:hover { color: #e74c3c; }
+
+/* Push page content up so bar doesn't overlap video controls */
+ytd-app {
+  padding-bottom: 44px !important;
+}

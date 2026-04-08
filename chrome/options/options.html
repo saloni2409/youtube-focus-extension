@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>YouTube Focus — Settings</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0f0f0f; color: #fff; font-family: "Segoe UI", Roboto, sans-serif; min-height: 100vh; }
+    .layout { display: flex; height: 100vh; }
+
+    /* Sidebar */
+    #sidebar {
+      width: 220px; background: #111; border-right: 1px solid #222;
+      padding: 20px 0; display: flex; flex-direction: column;
+    }
+    #sidebar h1 { font-size: 15px; padding: 0 16px 16px; color: #fff; border-bottom: 1px solid #222; }
+    .profile-tab {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 16px; cursor: pointer; font-size: 13px; color: #aaa;
+      border-left: 3px solid transparent; transition: all .15s;
+    }
+    .profile-tab:hover { color: #fff; background: #1a1a1a; }
+    .profile-tab.active { color: #fff; background: #1e1e1e; border-left-color: var(--c); }
+    .tab-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--c); flex-shrink: 0; }
+    #add-profile-btn {
+      margin: 12px 16px 0; padding: 8px; border: 1px dashed #444; border-radius: 8px;
+      background: none; color: #888; font-size: 12px; cursor: pointer; transition: all .15s;
+    }
+    #add-profile-btn:hover { border-color: #888; color: #fff; }
+
+    /* Main */
+    #main { flex: 1; padding: 32px 40px; overflow-y: auto; }
+    #main h2 { font-size: 20px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .color-dot { width: 14px; height: 14px; border-radius: 50%; }
+
+    .section { margin-bottom: 28px; }
+    .section-title { font-size: 11px; text-transform: uppercase; letter-spacing: .6px; color: #888; margin-bottom: 12px; }
+
+    .field { margin-bottom: 14px; }
+    .field label { display: block; font-size: 13px; color: #ccc; margin-bottom: 6px; }
+    .field input[type=text], .field select, .field textarea {
+      width: 100%; background: #1a1a1a; border: 1px solid #333; border-radius: 8px;
+      color: #fff; font-size: 13px; padding: 8px 12px; outline: none;
+      transition: border-color .15s;
+    }
+    .field input[type=text]:focus, .field select:focus, .field textarea:focus { border-color: #555; }
+    .field textarea { resize: vertical; min-height: 70px; }
+
+    .toggle-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 10px 0; border-bottom: 1px solid #1e1e1e;
+    }
+    .toggle-row:last-child { border-bottom: none; }
+    .toggle-label { font-size: 13px; color: #ccc; }
+    .toggle-label small { display: block; font-size: 11px; color: #666; margin-top: 2px; }
+    .toggle { position: relative; width: 38px; height: 20px; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0; background: #333; border-radius: 20px; cursor: pointer; transition: .2s;
+    }
+    .slider::before {
+      content: ""; position: absolute; width: 14px; height: 14px;
+      left: 3px; top: 3px; background: #fff; border-radius: 50%; transition: .2s;
+    }
+    input:checked + .slider { background: #4f8ef7; }
+    input:checked + .slider::before { transform: translateX(18px); }
+
+    /* Shortcuts */
+    .shortcut-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .shortcut-row input { flex: 1; background: #1a1a1a; border: 1px solid #333; border-radius: 8px; color: #fff; font-size: 12px; padding: 6px 10px; outline: none; }
+    .rm-btn { background: none; border: none; color: #666; font-size: 16px; cursor: pointer; padding: 0 4px; }
+    .rm-btn:hover { color: #e74c3c; }
+    .add-btn {
+      background: none; border: 1px dashed #444; border-radius: 8px; color: #888;
+      font-size: 12px; padding: 6px 12px; cursor: pointer; width: 100%; margin-top: 4px;
+      transition: all .15s;
+    }
+    .add-btn:hover { border-color: #888; color: #fff; }
+
+    /* Save / Delete */
+    .actions { display: flex; gap: 10px; margin-top: 32px; }
+    .save-btn {
+      background: #4f8ef7; border: none; border-radius: 8px; color: #fff;
+      font-size: 13px; font-weight: 600; padding: 10px 24px; cursor: pointer;
+    }
+    .save-btn:hover { background: #3a7de0; }
+    .delete-btn {
+      background: none; border: 1px solid #c0392b; border-radius: 8px; color: #c0392b;
+      font-size: 13px; padding: 10px 20px; cursor: pointer;
+    }
+    .delete-btn:hover { background: #c0392b; color: #fff; }
+    .toast {
+      position: fixed; bottom: 24px; right: 24px; background: #2ecc71;
+      color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 13px;
+      opacity: 0; transition: opacity .3s; pointer-events: none;
+    }
+    .toast.show { opacity: 1; }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <div id="sidebar">
+    <h1>🎯 YouTube Focus</h1>
+    <div id="profile-tabs"></div>
+    <button id="add-profile-btn">+ New Profile</button>
+  </div>
+  <div id="main">
+    <div id="editor"></div>
+  </div>
+</div>
+<div class="toast" id="toast">Saved!</div>
+<script src="options.js"></script>
+</body>
+</html>

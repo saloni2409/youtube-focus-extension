@@ -1,0 +1,15 @@
+youtube-focus-extension/
+├── manifest.json
+├── background.js
+├── content.js
+├── content.css
+├── popup/
+│   ├── popup.html
+│   ├── popup.js
+│   └── popup.css
+├── options/
+│   ├── options.html
+│   ├── options.js
+│   └── options.css
+└── icons/
+    └── icon128.png  (add your own)
