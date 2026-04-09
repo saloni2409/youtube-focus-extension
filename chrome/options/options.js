@@ -66,6 +66,7 @@ function renderEditor() {
       <div class="field">
         <label>When opening YouTube, go to:</label>
         <select id="f-homepage">
+          <option value="default" ${p.homepageMode==="default"?"selected":""}>Default (unchanged)</option>
           <option value="subscriptions" ${p.homepageMode==="subscriptions"?"selected":""}>Subscriptions Feed</option>
           <option value="search" ${p.homepageMode==="search"?"selected":""}>Auto-Search (set query below)</option>
           <option value="blank" ${p.homepageMode==="blank"?"selected":""}>Blank / Search Only</option>

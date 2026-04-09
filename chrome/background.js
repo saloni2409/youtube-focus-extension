@@ -69,10 +69,27 @@ const DEFAULT_PROFILES = [
 ];
 
 // Initialize storage with defaults on install
-chrome.runtime.onInstalled.addListener(async () => {
+chrome.runtime.onInstalled.addListener(async (details) => {
   const { profiles, activeProfileId } = await chrome.storage.sync.get(["profiles", "activeProfileId"]);
   if (!profiles) await chrome.storage.sync.set({ profiles: DEFAULT_PROFILES });
   if (!activeProfileId) await chrome.storage.sync.set({ activeProfileId: "study" });
+
+  // Migration — runs on update, fills in any missing fields
+  // Add new fields here whenever you change the profile structure
+  if (details.reason === "update" && profiles) {
+    const migrated = profiles.map(p => ({
+      blockEndCards:    false,  // example new field with safe default
+      blockAutoplay:    false,  // safe defaults for any missing fields
+      homepageMode:     "default",
+      allowedKeywords:  [],
+      blockedKeywords:  [],
+      playlistShortcuts: [],
+      defaultSearchQuery: "",
+      ...p  // existing user data wins — never overwrite what's already there
+    }));
+    await chrome.storage.sync.set({ profiles: migrated });
+    console.log("YouTube Focus: migrated profiles to latest schema");
+  }
 });
 
 // Listen for messages from content/popup
